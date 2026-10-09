@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Özel Bir Mesaj</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #fbcfe8, #f472b6, #db2777);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: #fff;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 35px 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-align: center;
+            max-width: 480px;
+            width: 90%;
+            transition: all 0.5s ease;
+        }
+        h2 {
+            margin-bottom: 15px;
+            font-weight: 600;
+            font-size: 22px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+            font-size: 16px;
+            text-align: center;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+        button {
+            background: #be185d;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        button:hover {
+            background: #9d174d;
+            transform: scale(1.05);
+        }
+        .error {
+            color: #ffe4e6;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+        .hidden {
+            display: none;
+        }
+        .message-box {
+            font-size: 14px;
+            line-height: 1.7;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            max-height: 320px;
+            overflow-y: auto;
+        }
+        .interactive-area {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+            height: 50px;
+        }
+        #noBtn {
+            position: absolute;
+            background: #f43f5e;
+            transition: 0.2s ease;
+        }
+        .heart {
+            position: absolute;
+            color: #ffb6c1;
+            font-size: 20px;
+            animation: flyUp 4s linear infinite;
+            bottom: -20px;
+            user-select: none;
+            pointer-events: none;
+        }
+        @keyframes flyUp {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Şifre Ekranı -->
+    <div class="container" id="loginBox">
+        <h2>🔒 Bu site özel bir kişiye özeldir</h2>
+        <p style="margin-bottom: 15px; font-size: 14px; opacity: 0.9;">İpucu: İlişkimizin yıldönümü (Gün ve Ay olarak 4 haneli sayı)</p>
+        <input type="password" id="passwordInput" placeholder="Şifre" maxlength="4">
+        <br>
+        <button onclick="checkPassword()">Giriş Yap</button>
+        <div class="error" id="errorMsg">Yanlış şifre! Tekrar dene güzellik :)</div>
+    </div>
+
+    <!-- İçerik Ekranı -->
+    <div class="container hidden" id="contentBox">
+        <h2>Sevgili Samira'ma 💖</h2>
+        <div class="message-box">
+            Seni çok seviyorum, değer veriyorum.<br><br>
+            Bazen istemeden kırıyorum, farkında olmadan kırdığım anlar olabiliyor ve bunun için gerçekten üzgünüm. Her ne kadar 1 yıl geçmiş bile olsa, seni hâlâ ve her gün yeniden sevmeyi öğreniyorum.<br><br>
+            Bundan son derece mutluyum; çünkü hayat boyu insan bir şeyleri öğreniyor, büyüyor ve senin de benim bu hayattaki en kıymetli ana derslerimden biri olmandan, hayatıma kattığın bu güzellikten gurur duyuyorum.<br><br>
+            İnatlaşmalarımız, minik tartışmalarımız ya da arada sırada girdiğimiz o ego savaşları ne olursa olsun, kalbimin ve aklımın tek bir yerinde hep sen varsın. İyi ki varsın, iyi ki benimlesin.
+        </div>
+        <p style="font-weight: 600; margin-bottom: 10px;">Barışalım mı?</p>
+        <div class="interactive-area" id="interactiveArea">
+            <button id="yesBtn" onclick="acceptApology()">Evet 💕</button>
+            <button id="noBtn" onmouseover="moveNoButton()" onclick="moveNoButton()">Hayır 🙄</button>
+        </div>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const pass = document.getElementById('passwordInput').value;
+            if (pass === '1910') {
+                document.getElementById('loginBox').classList.add('hidden');
+                document.getElementById('contentBox').classList.remove('hidden');
+                startHearts();
+            } else {
+                const err = document.getElementById('errorMsg');
+                err.style.display = 'block';
+                setTimeout(() => err.style.display = 'none', 3000);
+            }
+        }
+
+        function moveNoButton() {
+            const noBtn = document.getElementById('noBtn');
+            const x = Math.random() * 200 - 100;
+            const y = Math.random() * 80 - 40;
+            noBtn.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        function acceptApology() {
+            const contentBox = document.getElementById('contentBox');
+            contentBox.innerHTML = `
+                <h2>Biliyordum! 🥰</h2>
+                <div class="message-box" style="text-align: center;">
+                    İyi ki benimlesin, iyi ki varsın.<br><br>
+                    Seni çok ama çok seviyorum! 🌸✨
+                </div>
+            `;
+        }
+
+        function startHearts() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 4000);
+            }, 300);
+        }
+    </script>
+</body>
+</html>
